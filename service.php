@@ -94,13 +94,13 @@ $servicesArray = array_unique($servicesArray); // get rid of duplicates
         </thead>
         <tbody>
 <?
-if (!empty($servicesArray)){
-	foreach ($servicesArray as $service){
-		echo "<tr><td><a href=\"stop.php?route=" . $route . "&day=" . $day . "&servce=" . $service . "&service=" . $service . "\">" . $service . "</a></td></tr>";
+if (!empty($servicesArray)){ // if the route entered has services running on $day...
+	foreach ($servicesArray as $service){ // for each service
+		echo "<tr><td><a href=\"stop.php?route=" . $route . "&day=" . $day . "&servce=" . $service . "&service=" . $service . "\">" . $service . "</a></td></tr>"; // add a <tr> with the name and a link to the next page
 	}
 }
-else {
-	echo "<tr><td><strong>This route does not appear to have any services running today</strong></td></tr>";
+else { // if there's no running services today... 
+	echo "<tr><td><strong>This route does not appear to have any services running today</strong></td></tr>"; // send a <tr> with an error
 }
 ?>
         </tbody>
