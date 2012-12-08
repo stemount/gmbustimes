@@ -90,7 +90,7 @@ $servicesArray = array_unique($servicesArray); // get rid of duplicates
         <thead>
             <tr>
                 <th>Services for route <?php echo $route; ?></th>
-                <th class="pull-right">
+                <th class="pull-right"><i class="icon-calendar"></i> 
 <?php
 $tomorrow = time() + (1 * 24 * 60 * 60);
 $dayAfter = time() + (2 * 24 * 60 * 60);
