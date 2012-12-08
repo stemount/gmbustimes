@@ -115,7 +115,7 @@ if (!empty($servicesArray)){ // if the route entered has services running on $da
 	}
 }
 else { // if there's no running services today... 
-	echo "<tr><td><strong>This route does not appear to have any services running today</strong></td></tr>"; // send a <tr> with an error
+	echo "<tr><td><strong>This route does not appear to have any services running on the day you selected.</strong></td></tr>"; // send a <tr> with an error
 }
 ?>
         </tbody>
