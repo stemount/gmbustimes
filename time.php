@@ -5,7 +5,8 @@ $route = $_REQUEST['route'];
 $filename = glob("cifdata/*_" . $route . "_.CIF");
 $file = $filename['0'];
 $service = $_REQUEST['service'];
-
+$starttimeOpen = 0;
+$serviceOpen = 0;
 $lines = file($file);
 $timesArray = [];
 if ($day == "monday")
@@ -118,7 +119,22 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
     <table class="table">
         <thead>
             <tr>
-                <th>Times for <?php echo $service . " at " . $stop . " on " . ucfirst($day); ?></th>
+                <th>Times for
+<?php
+$tomorrow = time() + (1 * 24 * 60 * 60);
+$dayAfter = time() + (2 * 24 * 60 * 60);
+echo $service . " at " . $stop . " on <span class=\"text-error\"><em>" . ucfirst($day) . " ";
+if ($day == strtolower(date('l'))){
+	echo "</em></span>(today)"; 
+}
+elseif ($day == strtolower(date('l', $tomorrow))){
+	echo "</em></span>(tomorrow)";
+}
+else {
+	echo "</em></span>";
+}
+?>
+</th>
             </tr>
         </thead>
         <tbody>
