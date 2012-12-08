@@ -11,7 +11,7 @@ if (!empty($found)){ // if we've found the route
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Manchester Bus Times</title>
+    <title>Manchester Bus Times - Search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Searches bus times across Greater Manchester. Route not found.">
     <meta name="author" content="">
