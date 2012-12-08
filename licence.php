@@ -88,6 +88,12 @@
         <p><small>And it says I've got to require you to follow the licence, so... do it, kay?</small></p>
       </div>
     </div>
+    <div class="row">
+      <div class="span9">
+        <h1>Icons</h1>
+        <p>Uses <a href="http://glyphicons.com/">Glyphicons</a> Halflings</p>
+      </div>
+    </div>
 
       <hr>
 
