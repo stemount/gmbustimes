@@ -93,11 +93,15 @@ $servicesArray = array_unique($servicesArray); // get rid of duplicates
                 <th class="pull-right">
 <?php
 $tomorrow = time() + (1 * 24 * 60 * 60);
-if ($day == strtolower(date('l'))){
-	echo "Today - <a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l', $tomorrow)) . "\">Tomorrow</a>";
+$dayAfter = time() + (2 * 24 * 60 * 60);
+if ($day == strtolower(date('l'))){ // if today is selected
+	echo "Today - <a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l', $tomorrow)) . "\">Tomorrow</a> - <a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l', $dayAfter)) . "\">" . date('l', $dayAfter) . "</a>";
 }
-elseif ($day == strtolower(date('l', $tomorrow))){
-	echo "<a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l')) . "\">Today</a> - Tomorrow";
+elseif ($day == strtolower(date('l', $tomorrow))){ // if tomorrow is selected
+	echo "<a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l')) . "\">Today</a> - Tomorrow - <a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l', $dayAfter)) . "\">" . date('l', $dayAfter) . "</a>";
+}
+elseif ($day == strtolower(date('l', $dayAfter))){ // tomorrow+1 is selected
+	echo "<a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l')) . "\">Today</a> - <a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l', $tomorrow)) . "\">Tomorrow</a> - " . date('l', $dayAfter);
 }
 ?>
 </th>
