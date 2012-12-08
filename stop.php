@@ -40,13 +40,14 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
 		elseif ($dayOpen == 1 && $serviceOpen == 1 && substr($line, 0, 2) == "ZA"){
 			/* array_push($stopsArray, substr($line, 3, 11));
 			array_push($stopNamesArray, trim(substr($line, 16, 48))); */
-	        if (is_numeric(substr($line, 11, 3))){
+	        if (ctype_digit(substr($line, 11, 3))){
 				$stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
 	        }
 		}
 	}
 }
 $stopsArray = array_unique($stopsArray);
+
 ?>
 
 <!DOCTYPE html>
