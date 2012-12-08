@@ -2,6 +2,7 @@
 $stop = $_REQUEST['stop'];
 $day = $_REQUEST['day'];
 $route = $_REQUEST['route'];
+$stopName = $_REQUEST['stopName'];
 $filename = glob("cifdata/*_" . $route . "_.CIF");
 $file = $filename['0'];
 $service = $_REQUEST['service'];
@@ -123,7 +124,7 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
 <?php
 $tomorrow = time() + (1 * 24 * 60 * 60);
 $dayAfter = time() + (2 * 24 * 60 * 60);
-echo $service . " at " . $stop . " on <span class=\"text-error\"><em>" . ucfirst($day) . " ";
+echo $service . " at " . $stopName . " (" . $stop . ") on <span class=\"text-error\"><em>" . ucfirst($day) . " ";
 if ($day == strtolower(date('l'))){
 	echo "</em></span>(today)"; 
 }

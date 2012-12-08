@@ -109,7 +109,7 @@ $stopsArray = array_unique($stopsArray);
         <tbody>
 <?php
 foreach ($stopsArray as $stopID => $stopName) {
-    echo "<tr><td><a href=\"time.php?stop=" . $stopID . "&route=" . $route . "&day=" . $day . "&service=" . $service . "\">" . $stopName . "</a></td></tr>";
+    echo "<tr><td><a href=\"time.php?stop=" . $stopID . "&stopName=" . $stopName .  "&route=" . $route . "&day=" . $day . "&service=" . $service . "\">" . $stopName . "</a></td></tr>";
 }
 ?>
         </tbody>
