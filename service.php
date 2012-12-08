@@ -1,6 +1,6 @@
 <?php
-$day = $_REQUEST['day'];
-$route = $_REQUEST['route'];
+$day = $_REQUEST['day']; // day of the week in lowercase
+$route = $_REQUEST['route']; // route number in uppercase
 $servicesArray = [];
 
 $dayOpen = 0;
@@ -13,27 +13,25 @@ elseif ($day == "saturday"){
 elseif ($day == "sunday"){
 	$dayRange = "Sundays";
 }
-foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
-	$lines = file($filename);
-	foreach($lines as $line_num => $line)
+foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){ // for every cif file that matches the route number (done because some routes have 2 files, like the 192 having GM__192_.CIF *and* GMN_192_.CIF for its night service)
+	$lines = file($filename); // open the file
+	foreach($lines as $line_num => $line) // for every line in the file
 	{
-		if ($dayOpen == 1){
-		}
-		if (substr($line, 0, 2) == "ZD"){ 
+		if (substr($line, 0, 2) == "ZD"){ // date declaration (my term)
 			if (trim(substr($line, 18, 64)) == $dayRange && substr($line, 2, 8) < date('Ymd') && substr($line, 21, 8) > date('Ymd')){
-				$dayOpen = 1;
+				$dayOpen = 1; // parse following lines
 			}
 			else {
 				$dayOpen = 0;
 			}
 		}
-		elseif ($dayOpen == 1 && substr($line, 0, 2) == "ZS"){ 
-			array_push($servicesArray, (trim(substr($line, 14, 50))));
+		elseif ($dayOpen == 1 && substr($line, 0, 2) == "ZS"){ // if the previous date declaration match and it's a service declaration
+			array_push($servicesArray, (trim(substr($line, 14, 50)))); // put the service name into $servicesArray
 		}	
 
 	}
 }
-$servicesArray = array_unique($servicesArray);
+$servicesArray = array_unique($servicesArray); // get rid of duplicates
 
 ?>
 

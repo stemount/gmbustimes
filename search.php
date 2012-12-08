@@ -1,11 +1,11 @@
 <?php
-$route = strtoupper($_REQUEST['s']);
-$found = glob("cifdata/*_" . $route . "_.CIF");
-$day = strtolower(date('l'));
-if (!empty($found)){
-	header('Location: service.php?route=' . $route . "&day=" . $day);
+$route = strtoupper($_REQUEST['s']); // file names are all uppercase so that's what we want here
+$found = glob("cifdata/*_" . $route . "_.CIF"); // search cifdata for a file with the route number
+$day = strtolower(date('l')); // get the current day of the week and make it lowercase
+if (!empty($found)){ // if we've found the route
+	header('Location: service.php?route=' . $route . "&day=" . $day); // send them here
 }
-
+// otherwise display the error page
 ?>
 <!DOCTYPE html>
 <html lang="en">
