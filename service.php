@@ -90,13 +90,24 @@ $servicesArray = array_unique($servicesArray); // get rid of duplicates
         <thead>
             <tr>
                 <th>Services for route <?php echo $route; ?></th>
+                <th class="pull-right">
+<?php
+$tomorrow = time() + (1 * 24 * 60 * 60);
+if ($day == strtolower(date('l'))){
+	echo "Today - <a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l', $tomorrow)) . "\">Tomorrow</a>";
+}
+elseif ($day == strtolower(date('l', $tomorrow))){
+	echo "<a href=\"service.php?route=" . $route . "&day=" . strtolower(date('l')) . "\">Today</a> - Tomorrow";
+}
+?>
+</th>
             </tr>
         </thead>
         <tbody>
 <?
 if (!empty($servicesArray)){ // if the route entered has services running on $day...
 	foreach ($servicesArray as $service){ // for each service
-		echo "<tr><td><a href=\"stop.php?route=" . $route . "&day=" . $day . "&servce=" . $service . "&service=" . $service . "\">" . $service . "</a></td></tr>"; // add a <tr> with the name and a link to the next page
+		echo "<tr><td><a href=\"stop.php?route=" . $route . "&day=" . $day . "&service=" . $service . "\">" . $service . "</a></td></tr>"; // add a <tr> with the name and a link to the next page
 	}
 }
 else { // if there's no running services today... 
