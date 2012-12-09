@@ -158,8 +158,13 @@ else {
         </thead>
         <tbody>
 <?
-foreach ($timesArray as $time){
-    echo "<tr><td>" . $time . "</td></tr>";
+if (!empty($timesArray)){
+	foreach ($timesArray as $time){
+	    echo "<tr><td>" . $time . "</td></tr>";
+	}
+}
+else {
+	echo "<tr><td><strong>The stop you selected is not stopped at by the service you selected on this day. Select another service, stop or route, or choose a different day.</strong></td></tr>";
 }
 ?>
         </tbody>
