@@ -79,6 +79,9 @@ $servicesArray = array_unique($servicesArray); // get rid of duplicates
                 <input type="text" class="span2" name="s">
                 <button type="submit" class="btn">Submit</button>
             </form>
+            <ul class="nav pull-right">
+              <li><a href="holiday.php">Christmas/Bank Holiday Info</a></li>
+            </ul>
           </div>
         </div>
       </div>

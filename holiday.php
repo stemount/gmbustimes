@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Manchester Bus Times</title>
+    <title>Manchester Bus Times - Christmas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Searches bus times across Greater Manchester">
+    <meta name="description" content="Searches bus times across Greater Manchester. Bank holiday info.">
     <meta name="author" content="">
 
     <!-- Le styles -->
@@ -42,7 +42,7 @@
                 <button type="submit" class="btn">Submit</button>
             </form>
             <ul class="nav pull-right">
-              <li><a href="holiday.php">Christmas/Bank Holiday Info</a></li>
+              <li class="active"><a href="holiday.php">Christmas/Bank Holiday Info</a></li>
             </ul>
           </div>
         </div>
@@ -51,8 +51,10 @@
 
     <div class="container">
 
-      <h1>Manchester Bus Times</h1>
-      <p>Type your route number in the box in the navbar to find times</p>
+      <h1>Fasten your seatbelt...</h1>
+      <h2>...it could get a bit bumpy (and not just because of potholes)</h2>
+      <p>During the Christmas period (this year it's the 24th December 2012 to the 2nd January 2013) TfGM's timetable information that is used by the service may not be valid. I've had a look at some of the data and it seems that several timetable changes are made in quick succession near to the end of December but I've not got time to check if they're the real Christmas timetable. So you should</p>
+      <h1><a href="http://www.tfgm.com/journey_planning/Pages/Christmas-services.aspx">GO HERE</a> for information 24/12/2012 - 02/01/2013</h1>
 
       <hr>
 
