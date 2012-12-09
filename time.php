@@ -116,7 +116,25 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
     </div>
 
     <div class="container">
-
+<div class="row">
+      <div class="span9">
+        <p><i class="icon-calendar"></i> 
+<?php
+$tomorrow = time() + (1 * 24 * 60 * 60);
+$dayAfter = time() + (2 * 24 * 60 * 60);
+if ($day == strtolower(date('l'))){ // if today is selected
+  echo "Today - <a href=\"time.php?stop=" . $stop . "&stopName=" . $stopName . "&route=" . $route . "&day=" . strtolower(date('l', $tomorrow)) . "&service="  . $service . "\">Tomorrow</a> - <a href=\"time.php?stop=" . $stop . "&stopName=" . $stopName . "&route=" . $route . "&day=" . strtolower(date('l', $dayAfter)) . "&service="  . $service . "\">" . date('l', $dayAfter) . "</a>";
+}
+elseif ($day == strtolower(date('l', $tomorrow))){ // if tomorrow is selected
+  echo "<a href=\"time.php?stop=" . $stop . "&stopName=" . $stopName . "&route=" . $route . "&day=" . strtolower(date('l')) . "&service="  . $service . "\">Today</a> - Tomorrow - <a href=\"time.php?stop=" . $stop . "&stopName=" . $stopName . "&route=" . $route . "&day=" . strtolower(date('l', $dayAfter)) . "&service="  . $service . "\">" . date('l', $dayAfter) . "</a>";
+}
+elseif ($day == strtolower(date('l', $dayAfter))){ // tomorrow+1 is selected
+  echo "<a href=\"time.php?stop=" . $stop . "&stopName=" . $stopName . "&route=" . $route . "&day=" . strtolower(date('l')) . "&service="  . $service . "\">Today</a> - <a href=\"time.php?stop=" . $stop . "&stopName=" . $stopName . "&route=" . $route . "&day=" . strtolower(date('l', $tomorrow)) . "&service="  . $service . "\">Tomorrow</a> - " . date('l', $dayAfter);
+}
+?>
+</p>
+      </div>
+    </div>
     <table class="table">
         <thead>
             <tr>
