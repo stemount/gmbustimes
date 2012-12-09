@@ -4,7 +4,7 @@ $route = $_REQUEST['route']; // route number in uppercase
 $servicesArray = [];
 
 $dayOpen = 0;
-if ($day == "monday" || $day == "tueday" || $day == "wednesday" || $day == "thursday" || $day == "friday"){
+if ($day == "monday" || $day == "tuesday" || $day == "wednesday" || $day == "thursday" || $day == "friday"){
 	$dayRange = "Mondays to Fridays";
 }
 elseif ($day == "saturday"){

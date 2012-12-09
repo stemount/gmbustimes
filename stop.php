@@ -8,7 +8,7 @@ $stopsArray = [];
 $stopNamesArray = [];
 $lines = file($file);
 
-if ($day == "monday" || $day == "tueday" || $day == "wednesday" || $day == "thursday" || $day == "friday"){
+if ($day == "monday" || $day == "tuesday" || $day == "wednesday" || $day == "thursday" || $day == "friday"){
 	$dayRange = "Mondays to Fridays";
 }
 elseif ($day == "saturday"){
