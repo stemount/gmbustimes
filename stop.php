@@ -7,6 +7,7 @@ $service = $_REQUEST['service'];
 $stopsArray = [];
 $stopNamesArray = [];
 $lines = file($file);
+$dayOpen = 0;
 
 if ($day == "monday" || $day == "tuesday" || $day == "wednesday" || $day == "thursday" || $day == "friday"){
 	$dayRange = "Mondays to Fridays";
@@ -41,8 +42,15 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
 			/* array_push($stopsArray, substr($line, 3, 11));
 			array_push($stopNamesArray, trim(substr($line, 16, 48))); */
 	        if (ctype_digit(substr($line, 11, 3))){
-				$stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
-	        }
+            if (preg_match("/\D\D\D\D/", substr($line, 3, 11))){ // If it's a station (identified by 4 contiguous letters in the middle instead of two or three)...
+              if (preg_match("/001/", substr($line, 11, 3))){ // ... Check if it's the _station_ (which is in the timetable) and not a _stand_ (which is in the TT but not stopped at)
+				        $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
+              }
+            }
+          else { // If it's not a station then we can add it to the array
+            $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
+          }
+          }
 		}
 	}
 }
