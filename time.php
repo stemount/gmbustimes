@@ -57,10 +57,13 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
 		elseif ($starttimeOpen == 1 && $serviceOpen == 1 && (substr($line, 0, 2) == "QI" || substr($line, 0, 2) == "QO")) {
 			if (trim(substr($line, 2, 11)) == $stop){ // Check that this stop is the one we want to get times for
 				array_push($timesArray, trim(substr($line, 14, 4)));	
-
 				$starttimeOpen = 0;
-			}
-		}
+      }
+    }
+    elseif ($starttimeOpen == 1 && $serviceOpen == 1 && substr($line, 0, 2) == "QT" && !preg_match('#(.*?)(circular|Circular|CIRCULAR)(.*?)#', $service)){
+      array_push($timesArray, trim(substr($line, 14, 4)));  
+      $starttimeOpen = 0;
+    }
 	}
 }
 
