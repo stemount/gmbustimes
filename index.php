@@ -53,7 +53,10 @@
 
       <h1>Manchester Bus Times</h1>
       <p>Type your route number in the box in the navbar to find times</p>
-
+      <div class="alert alert-info alert-block">
+        <h3>Christmas Period</h3>
+        <p>Between 24/12/2012 and 02/01/2013 check <a href="http://www.tfgm.com/journey_planning/Pages/Christmas-services.aspx">here</a> for timetables. They will almost certainly not be valid on this site.<p>
+      </div>
       <hr>
 
       <footer>
