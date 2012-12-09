@@ -126,9 +126,15 @@ elseif ($day == strtolower(date('l', $dayAfter))){ // tomorrow+1 is selected
         </thead>
         <tbody>
 <?php
-foreach ($stopsArray as $stopID => $stopName) {
-    echo "<tr><td><a href=\"time.php?stop=" . $stopID . "&stopName=" . $stopName .  "&route=" . $route . "&day=" . $day . "&service=" . $service . "\">" . $stopName . "</a></td></tr>";
+if (!empty($stopsArray)){
+	foreach ($stopsArray as $stopID => $stopName) {
+		echo "<tr><td><a href=\"time.php?stop=" . $stopID . "&stopName=" . $stopName .  "&route=" . $route . "&day=" . $day . "&service=" . $service . "\">" . $stopName . "</a></td></tr>";
+	}
 }
+else {
+	echo "<tr><td><strong>This service you selected does not appear to run on the date you selected. Either select another date, go back to select another service or enter a new route.</strong></td></tr>";
+}
+
 ?>
         </tbody>
     </table>
