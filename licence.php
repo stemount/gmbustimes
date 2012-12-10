@@ -57,7 +57,7 @@
     <div class="row">
       <div class="span9">
         <h1>Service</h1>
-        <p>This section applies if you the programme is operated by Kieran Mather as a web service at codedump.eu or a subdomain. If you are not at codedump.eu then you should ask the site owner to remove or change this section to refer to their own site.</p>
+        <p>This section applies if the programme is operated by Kieran Mather as a web service at codedump.eu or a subdomain. If you are not at codedump.eu then you should ask the site owner to remove or change this section to refer to their own site.</p>
         <p>You agree that your access to this service is provided on an 'as-is' basis and that access and/or availability is not guaranteed in any way. In addition, you understand that no warranties, for any reason, are made about the suitability of this service for any reason and that I disclaim any and all liabilities relating to it. Neither I nor any supplier of data to this service make any warranty relating to its accuracy, and if you rely on this service you do so entirely at your own risk.</p>
         <p><strong>tl;dr: it might not work, it might be wrong, it's definitely not my problem (although if you find a problem, contact me and I'll do my best to fix it)</strong></p>
       </div>
