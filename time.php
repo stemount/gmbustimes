@@ -114,7 +114,7 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
                 <button type="submit" class="btn">Submit</button>
             </form>
                 <ul class="nav">
-    <li><a href="#">Christmas/Bank Holiday Info</a></li>
+    <li><a href="holiday.php">Christmas/Bank Holiday Info</a></li>
     </ul>
           </div>
         </div>
