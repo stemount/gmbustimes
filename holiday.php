@@ -50,7 +50,21 @@
     </div>
 
     <div class="container">
-
+<?php
+// Holday services warning. You can remove this if you wish.
+$holidayStart = strtotime("2012-12-24"); // ISO date format FTW
+$holidayEnd = strtotime("2013-01-02");
+$currentDate = time();
+if ($currentDate > $holidayStart && $currentDate < $holidayEnd){
+echo <<<END
+      <div class="alert alert-error alert-block">
+        <h2>WARNING!</h2>
+        <h3><strong>THE TIMES ON THIS PAGE ARE PROBABLY NOT THE ONES YOU WANT!</strong></h3>
+        <p>Times on this site are <strong>not</strong> valid during the adjusted Christmas timetables. Go <a href="http://www.tfgm.com/journey_planning/Pages/Christmas-services.aspx">here</a> for timetables. Do not use this site.<p>
+      </div>
+END;
+}
+?>
       <h1>Christmas Times Information</h1>
       <p>During the Christmas period (this year it's the 24th December 2012 to the 2nd January 2013) TfGM's timetable information that is used by the service may not be valid. I've had a look at some of the data and it seems that several timetable changes are made in quick succession near to the end of December but I've not got time to check if they're the real Christmas timetable. So you should</p>
       <h4><a href="http://www.tfgm.com/journey_planning/Pages/Christmas-services.aspx">GO HERE</a> for information 24/12/2012 - 02/01/2013</h4>

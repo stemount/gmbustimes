@@ -50,7 +50,20 @@
     </div>
 
     <div class="container">
-
+<?php
+// Holday services warning. You can remove this if you wish.
+$holidayStart = strtotime("2012-12-24"); // ISO date format FTW
+$holidayEnd = strtotime("2013-01-02");
+$currentDate = time();
+if ($currentDate > $holidayStart && $currentDate < $holidayEnd){
+echo <<<END
+      <div class="alert alert-error alert-block">
+        <h3>WARNING!</h3>
+        <p>Times on this site are <strong>not</strong> valid during the adjusted Christmas timetables. Go <a href="http://www.tfgm.com/journey_planning/Pages/Christmas-services.aspx">here</a> for timetables. Do not use this site.<p>
+      </div>
+END;
+}
+?>
       <h1>Manchester Bus Times</h1>
       <p>Type your route number in the box in the navbar to find times</p>
       <div class="alert alert-info alert-block">

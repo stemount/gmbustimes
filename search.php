@@ -59,7 +59,20 @@ if (!empty($found)){ // if we've found the route
     </div>
 
     <div class="container">
-
+<?php
+// Holday services warning. You can remove this if you wish.
+$holidayStart = strtotime("2012-12-24"); // ISO date format FTW
+$holidayEnd = strtotime("2013-01-02");
+$currentDate = time();
+if ($currentDate > $holidayStart && $currentDate < $holidayEnd){
+echo <<<END
+      <div class="alert alert-error alert-block">
+        <h3>WARNING!</h3>
+        <p>Times on this site are <strong>not</strong> valid during the adjusted Christmas timetables. Go <a href="http://www.tfgm.com/journey_planning/Pages/Christmas-services.aspx">here</a> for timetables. Do not use this site.<p>
+      </div>
+END;
+}
+?>
       <h1>Route not found!</h1>
       <p>Try typing it in again, making sure there's no spaces in the box. It's also possible that the route was recently created or withdrawn, check with TfGM.</p>
 

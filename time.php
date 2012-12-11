@@ -122,6 +122,21 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
     </div>
 
     <div class="container">
+<?php
+// Holday services warning. You can remove this if you wish.
+$holidayStart = strtotime("2012-12-24"); // ISO date format FTW
+$holidayEnd = strtotime("2013-01-02");
+$currentDate = time();
+if ($currentDate > $holidayStart && $currentDate < $holidayEnd){
+echo <<<END
+      <div class="alert alert-error alert-block">
+        <h2>WARNING!</h2>
+        <h3><strong>THE TIMES ON THIS PAGE ARE PROBABLY NOT THE ONES YOU WANT!</strong></h3>
+        <p>Times on this site are <strong>not</strong> valid during the adjusted Christmas timetables. Go <a href="http://www.tfgm.com/journey_planning/Pages/Christmas-services.aspx">here</a> for timetables. Do not use this site.<p>
+      </div>
+END;
+}
+?>
 <div class="row">
       <div class="span9">
         <p><i class="icon-calendar"></i> 
