@@ -163,12 +163,12 @@ elseif ($day == strtolower(date('l', $dayAfter))){ // tomorrow+1 is selected
 <?php
 $tomorrow = time() + (1 * 24 * 60 * 60);
 $dayAfter = time() + (2 * 24 * 60 * 60);
-echo $service . " at " . $stopName . " (" . $stop . ") on <span class=\"text-error\"><em>" . ucfirst($day) . " ";
+echo $service . " at " . $stopName . " (" . $stop . ") on <span class=\"badge badge-warning\"><em>" . ucfirst($day);
 if ($day == strtolower(date('l'))){
-	echo "</em></span>(today)"; 
+	echo "</em></span> (today)"; 
 }
 elseif ($day == strtolower(date('l', $tomorrow))){
-	echo "</em></span>(tomorrow)";
+	echo "</em></span> (tomorrow)";
 }
 else {
 	echo "</em></span>";
