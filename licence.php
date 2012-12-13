@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="vendor/css/bootstrap.css" rel="stylesheet">
+    <link href="vendor/css/cosmo.min.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -92,6 +92,16 @@ END;
         </blockquote>
         <p>The full licence is available at the above URL. Files covered by this licence have a header identifying this.</p>
         <p><strong>tl;dr: Twitter are awesome and made a cool web framework</strong></p>
+        <h3>Theme</h3>
+        <p>This programme contains software ("Cosmo") by Thomas Park, the licence statement of which is below:</p>
+        <blockquote>
+          <p>Copyright 2012 Thomas Park</p>
+          <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
+          <p>http://www.apache.org/licenses/LICENSE-2.0</p>
+          <p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+        </blockquote>
+        <p>This applies to /vendor/css/cosmo.min.css</p>
+        <p><strong>tl;dr: Thomas Park made a good-looking theme and I was too lazy to make my own. He's got a few so <a href="http://bootswatch.com/">go look at them</a></strong></p>
       </div>
     </div>
     <div class="row">

@@ -46,7 +46,7 @@ $servicesArray = array_unique($servicesArray); // get rid of duplicates
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="vendor/css/bootstrap.css" rel="stylesheet">
+    <link href="vendor/css/cosmo.min.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
