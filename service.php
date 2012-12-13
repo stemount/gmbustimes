@@ -103,6 +103,11 @@ END;
 }
 ?>
 <div class="row">
+  <div class="span4">
+      <div class="progress">
+        <div class="bar" style="width: 33%;"></div>
+      </div>
+  </div>
       <div class="span9">
         <p><i class="icon-calendar"></i> 
 <?php

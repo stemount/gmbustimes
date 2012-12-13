@@ -138,6 +138,11 @@ END;
 }
 ?>
 <div class="row">
+  <div class="span4">
+      <div class="progress">
+        <div class="bar" style="width: 100%;"></div>
+      </div>
+  </div>
       <div class="span9">
         <p><i class="icon-calendar"></i> 
 <?php
@@ -155,7 +160,7 @@ elseif ($day == strtolower(date('l', $dayAfter))){ // tomorrow+1 is selected
 ?>
 </p>
       </div>
-    </div>
+</div>
     <table class="table">
         <thead>
             <tr>
@@ -163,7 +168,7 @@ elseif ($day == strtolower(date('l', $dayAfter))){ // tomorrow+1 is selected
 <?php
 $tomorrow = time() + (1 * 24 * 60 * 60);
 $dayAfter = time() + (2 * 24 * 60 * 60);
-echo $service . " at " . $stopName . " (" . $stop . ") on <span class=\"badge badge-warning\"><em>" . ucfirst($day);
+echo $service . " at " . $stopName . " (" . $stop . ") on <span class=\"badge badge-info\"><em>" . ucfirst($day);
 if ($day == strtolower(date('l'))){
 	echo "</em></span> (today)"; 
 }
