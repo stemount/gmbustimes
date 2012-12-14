@@ -10,6 +10,12 @@ $starttimeOpen = 0;
 $serviceOpen = 0;
 $lines = file($file);
 $timesArray = [];
+if ($day == strtolower(date('l'))){
+  $date = strtotime(date('Ymd'));
+}
+else {
+  $date = strtotime("next " . $day);
+}
 if ($day == "monday")
 	$daysOffset = "29";
 elseif ($day == "tuesday")
@@ -43,7 +49,7 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
 		}
 		elseif ($serviceOpen == 1 && substr($line, 0, 2) == "QS"){
 			if (substr($line, $daysOffset, 1) == "1"){
-				if (substr($line, 13, 8) < date('Ymd') && substr($line, 21, 8) > date('Ymd')) {
+				if (strtotime(substr($line, 13, 8)) <= $date && strtotime(substr($line, 21, 8)) >= $date) {
 					$starttimeOpen = 1;
 				}
 				else {
