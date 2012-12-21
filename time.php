@@ -1,11 +1,11 @@
 <?php
-$stop = $_REQUEST['stop'];
-$day = $_REQUEST['day'];
-$route = $_REQUEST['route'];
-$stopName = $_REQUEST['stopName'];
+$stop = htmlspecialchars($_REQUEST['stop']);
+$day = htmlspecialchars($_REQUEST['day']);
+$route = htmlspecialchars($_REQUEST['route']);
+$stopName = htmlspecialchars($_REQUEST['stopName']);
 $filename = glob("cifdata/*_" . $route . "_.CIF");
 $file = $filename['0'];
-$service = $_REQUEST['service'];
+$service = htmlspecialchars($_REQUEST['service']);
 $starttimeOpen = 0;
 $serviceOpen = 0;
 $lines = file($file);

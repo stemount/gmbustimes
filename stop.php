@@ -1,9 +1,9 @@
 <?php
-$day = $_REQUEST['day'];
-$route = $_REQUEST['route'];
+$day = htmlspecialchars($_REQUEST['day']);
+$route = htmlspecialchars($_REQUEST['route']);
 $filename = glob("cifdata/*_" . $route . "_.CIF");
 $file = $filename['0'];
-$service = $_REQUEST['service'];
+$service = htmlspecialchars($_REQUEST['service']);
 $stopsArray = [];
 $stopNamesArray = [];
 $lines = file($file);

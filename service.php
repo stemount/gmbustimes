@@ -1,6 +1,6 @@
 <?php
-$day = $_REQUEST['day']; // day of the week in lowercase
-$route = $_REQUEST['route']; // route number in uppercase
+$day = htmlspecialchars($_REQUEST['day']); // day of the week in lowercase
+$route = htmlspecialchars($_REQUEST['route']); // route number in uppercase
 $servicesArray = [];
 
 $dayOpen = 0;

@@ -1,5 +1,5 @@
 <?php
-$route = strtoupper($_REQUEST['s']); // file names are all uppercase so that's what we want here
+$route = strtoupper(htmlspecialchars($_REQUEST['s'])); // file names are all uppercase so that's what we want here
 $found = glob("cifdata/*_" . $route . "_.CIF"); // search cifdata for a file with the route number
 $day = strtolower(date('l')); // get the current day of the week and make it lowercase, this will eventually be taken from postdata so the user can select a day
 if (!empty($found)){ // if we've found the route
