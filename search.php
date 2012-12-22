@@ -23,7 +23,7 @@ if (!empty($found)){ // if we've found the route
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
-    <link href="vendor/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="vendor/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
