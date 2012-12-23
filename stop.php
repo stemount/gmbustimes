@@ -9,50 +9,45 @@ $stopNamesArray = [];
 $lines = file($file);
 $dayOpen = 0;
 
-if ($day == "monday" || $day == "tuesday" || $day == "wednesday" || $day == "thursday" || $day == "friday"){
-	$dayRange = "Mondays to Fridays";
+if ($day == "monday" || $day == "tuesday" || $day == "wednesday" || $day == "thursday" || $day == "friday") {
+    $dayRange = "Mondays to Fridays";
+} else if ($day == "saturday") {
+    $dayRange = "Saturdays";
+} else if ($day == "sunday") {
+    $dayRange = "Sundays";
 }
-elseif ($day == "saturday"){
-	$dayRange = "Saturdays";
-}
-elseif ($day == "sunday"){
-	$dayRange = "Sundays";
-}
-foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
-	$lines = file($filename);
-	foreach($lines as $line_num => $line)
-	{
-		if (substr($line, 0, 2) == "ZD"){ 
-			if (trim(substr($line, 18, 64)) == $dayRange && substr($line, 2, 8) < date('Ymd') && substr($line, 21, 8) > date('Ymd')){ // Check that this service is the one we want
-				$dayOpen = 1;
-			}
-			else {
-				$dayOpen = 0;
-			}
-		}
-		elseif ($dayOpen == 1 && substr($line, 0, 2) == "ZS"){ 
-			if (trim(substr($line, 14, 50)) == $service){
-				$serviceOpen = 1;
-			}
-			else{
-				$serviceOpen = 0;
-			}
-		}
-		elseif ($dayOpen == 1 && $serviceOpen == 1 && substr($line, 0, 2) == "ZA"){
-			/* array_push($stopsArray, substr($line, 3, 11));
-			array_push($stopNamesArray, trim(substr($line, 16, 48))); */
-	        if (ctype_digit(substr($line, 11, 3))){
-            if (preg_match("/\D\D\D\D/", substr($line, 3, 11))){ // If it's a station (identified by 4 contiguous letters in the middle instead of two or three)...
-              if (preg_match("/001/", substr($line, 11, 3))){ // ... Check if it's the _station_ (which is in the timetable) and not a _stand_ (which is in the TT but not stopped at)
-				        $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
-              }
+foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
+    $lines = file($filename);
+    foreach($lines as $line_num => $line)
+    {
+        if (substr($line, 0, 2) == "ZD") {
+            if (trim(substr($line, 18, 64)) == $dayRange && substr($line, 2, 8) < date('Ymd') && substr($line, 21, 8) > date('Ymd')) {
+                // Check that this service is the one we want
+                $dayOpen = 1;
+            } else {
+                $dayOpen = 0;
             }
-          else { // If it's not a station then we can add it to the array
-            $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
-          }
-          }
-		}
-	}
+        } else if ($dayOpen == 1 && substr($line, 0, 2) == "ZS") {
+            if (trim(substr($line, 14, 50)) == $service) {
+                $serviceOpen = 1;
+            } else {
+                $serviceOpen = 0;
+            }
+        } else if ($dayOpen == 1 && $serviceOpen == 1 && substr($line, 0, 2) == "ZA") {
+            if (ctype_digit(substr($line, 11, 3))) {
+                if (preg_match("/\D\D\D\D/", substr($line, 3, 11))) {
+                    // If it's a station (identified by 4 contiguous letters in the middle instead of two or three)...
+                    if (preg_match("/001/", substr($line, 11, 3))) {
+                        // ... Check if it's the _station_ (which is in the timetable) and not a _stand_ (which is in the TT but not stopped at)
+                        $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
+                    }
+                } else {
+                    // If it's not a station then we can add it to the array
+                    $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
+                }
+            }
+        }
+    }
 }
 $stopsArray = array_unique($stopsArray);
 

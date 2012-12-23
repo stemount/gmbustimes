@@ -10,67 +10,63 @@ $starttimeOpen = 0;
 $serviceOpen = 0;
 $lines = file($file);
 $timesArray = [];
-if ($day == strtolower(date('l'))){
-  $date = strtotime(date('Ymd'));
+if ($day == strtolower(date('l'))) {
+    $date = strtotime(date('Ymd'));
+} else {
+    $date = strtotime("next " . $day);
 }
-else {
-  $date = strtotime("next " . $day);
+if ($day == "monday") {
+    $daysOffset = "29";
+} else if ($day == "tuesday") {
+    $daysOffset = "30";
+} else if ($day == "wednesday") {
+    $daysOffset = "31";
+} else if ($day == "thursday") {
+    $daysOffset = "32";
+} else if ($day == "friday") {
+    $daysOffset = "33";
+} else if ($day == "saturday") {
+    $daysOffset = "34";
+} else if ($day == "sunday") {
+    $daysOffset = "35";
 }
-if ($day == "monday")
-	$daysOffset = "29";
-elseif ($day == "tuesday")
-	$daysOffset = "30";
-elseif ($day == "wednesday")
-	$daysOffset = "31";
-elseif ($day == "thursday")
-	$daysOffset = "32";
-elseif ($day == "friday")
-	$daysOffset = "33";
-elseif ($day == "saturday")
-	$daysOffset = "34";
-elseif ($day == "sunday")
-	$daysOffset = "35";
-foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
-	$lines = file($filename);
-	foreach($lines as $line_num => $line)
-	{
-		if (substr($line, 0, 2) == "ZS"){ 
-			if (trim(substr($line, 14, 50)) == $service){ // Check that this service is the one we want
-				/*$service = trim(substr($line, 14, 50));*/
-				$serviceOpen = 1;
-				$starttimeOpen = 0;
-			}
-			else {
-				$serviceOpen = 0;
-				$starttimeOpen = 0;
-			}
-			$starttimeOpen = 0;	
-
-		}
-		elseif ($serviceOpen == 1 && substr($line, 0, 2) == "QS"){
-			if (substr($line, $daysOffset, 1) == "1"){
-				if (strtotime(substr($line, 13, 8)) <= $date && strtotime(substr($line, 21, 8)) >= $date) {
-					$starttimeOpen = 1;
-				}
-				else {
-					$starttimeOpen = 0;
-				}
-			}
-			else {
-				$starttimeOpen = 0;
-			}
-		}
-		elseif ($starttimeOpen == 1 && $serviceOpen == 1 && (substr($line, 0, 2) == "QI" || substr($line, 0, 2) == "QO")) {
-			if (trim(substr($line, 2, 11)) == $stop){ // Check that this stop is the one we want to get times for
-				array_push($timesArray, trim(substr($line, 14, 4)));	
-				$starttimeOpen = 0;
-      }
+foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
+    $lines = file($filename);
+    foreach($lines as $line_num => $line)
+    {
+        if (substr($line, 0, 2) == "ZS") {
+            if (trim(substr($line, 14, 50)) == $service) {
+                // Check that this service is the one we want
+                /*$service = trim(substr($line, 14, 50));*/
+                $serviceOpen = 1;
+                $starttimeOpen = 0;
+            } else {
+                $serviceOpen = 0;
+                $starttimeOpen = 0;
+            }
+            $starttimeOpen = 0;
+            
+        } else if ($serviceOpen == 1 && substr($line, 0, 2) == "QS") {
+            if (substr($line, $daysOffset, 1) == "1") {
+                if (strtotime(substr($line, 13, 8)) <= $date && strtotime(substr($line, 21, 8)) >= $date) {
+                    $starttimeOpen = 1;
+                } else {
+                    $starttimeOpen = 0;
+                }
+            } else {
+                $starttimeOpen = 0;
+            }
+        } else if ($starttimeOpen == 1 && $serviceOpen == 1 && (substr($line, 0, 2) == "QI" || substr($line, 0, 2) == "QO")) {
+            if (trim(substr($line, 2, 11)) == $stop) {
+                // Check that this stop is the one we want to get times for
+                array_push($timesArray, trim(substr($line, 14, 4)));
+                $starttimeOpen = 0;
+            }
+        } else if ($starttimeOpen == 1 && $serviceOpen == 1 && substr($line, 0, 2) == "QT" && !preg_match('#(.*?)(circular|Circular|CIRCULAR)(.*?)#', $service)) {
+            array_push($timesArray, trim(substr($line, 14, 4)));
+            $starttimeOpen = 0;
+        }
     }
-    elseif ($starttimeOpen == 1 && $serviceOpen == 1 && substr($line, 0, 2) == "QT" && !preg_match('#(.*?)(circular|Circular|CIRCULAR)(.*?)#', $service)){
-      array_push($timesArray, trim(substr($line, 14, 4)));  
-      $starttimeOpen = 0;
-    }
-	}
 }
 
 ?>
