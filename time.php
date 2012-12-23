@@ -114,7 +114,7 @@ foreach (glob("cifdata/*_" . $route . "_.CIF") as $filename){
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="index.php">Manchester Bus Times</a>
+          <a class="brand" href="index.php"><img src="vendor/img/icon-bus.png" style="height: 20px; padding-right: 5px;">Manchester Bus Times</a>
           <div class="collapse nav-collapse">
             <form method="post" action="search.php" class="navbar-form pull-right">
                 <input type="text" class="span2" name="s">
