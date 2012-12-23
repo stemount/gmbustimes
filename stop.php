@@ -1,14 +1,16 @@
 <?php
+// Get the day of the week we passed from search.php
 $day = htmlspecialchars($_REQUEST['day']);
+// Get the route the user searched for in search.php
 $route = htmlspecialchars($_REQUEST['route']);
-$filename = glob("cifdata/*_" . $route . "_.CIF");
-$file = $filename['0'];
+// Get the service the user picked in service.php
 $service = htmlspecialchars($_REQUEST['service']);
+// Prepare array to store stop codes (e.g. 1800STBS001)
 $stopsArray = [];
-$stopNamesArray = [];
-$lines = file($file);
+// Prepare "locking" variable for days
 $dayOpen = 0;
 
+// Find the day range, you know the drill by now
 if ($day == "monday" || $day == "tuesday" || $day == "wednesday" || $day == "thursday" || $day == "friday") {
     $dayRange = "Mondays to Fridays";
 } else if ($day == "saturday") {
@@ -16,39 +18,54 @@ if ($day == "monday" || $day == "tuesday" || $day == "wednesday" || $day == "thu
 } else if ($day == "sunday") {
     $dayRange = "Sundays";
 }
+
+// For every CIF file that matches the route selected...
 foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
+    // ...Open it
     $lines = file($filename);
+    // For each line in it
     foreach($lines as $line_num => $line)
     {
+        // If it is a "ZD" line (which tells us the day(s) it runs on)
         if (substr($line, 0, 2) == "ZD") {
+            // If it matches the day range ($dayRange) we picked before AND it is currently used (i.e. it has entered use but is not out of date)
             if (trim(substr($line, 18, 64)) == $dayRange && substr($line, 2, 8) < date('Ymd') && substr($line, 21, 8) > date('Ymd')) {
-                // Check that this service is the one we want
+                // We're allowed to process "ZS" lines after this
                 $dayOpen = 1;
             } else {
+                // We're not allowed to process "ZS" lines after this
                 $dayOpen = 0;
             }
+        // If it's a "ZS" line (which contains the name of the service)
         } else if ($dayOpen == 1 && substr($line, 0, 2) == "ZS") {
+            // If it matches the service we picked before
             if (trim(substr($line, 14, 50)) == $service) {
+                // We're allowed to process "ZA" lines after this
                 $serviceOpen = 1;
             } else {
+                // We're not allowed to process "ZA" lines after this
                 $serviceOpen = 0;
             }
+        // If we're allowed to process ZA lines and it is one
         } else if ($dayOpen == 1 && $serviceOpen == 1 && substr($line, 0, 2) == "ZA") {
+            // If the last 3 characters of a stop ID are digits (which prevents "phantom" stops that are listed but are stopped at by no journeys)
             if (ctype_digit(substr($line, 11, 3))) {
+                // If it's a station (identified by 4 contiguous letters in the middle instead of two or three)...
                 if (preg_match("/\D\D\D\D/", substr($line, 3, 11))) {
-                    // If it's a station (identified by 4 contiguous letters in the middle instead of two or three)...
+                    // ... If it's the correct station and not a phantom one (note that all "real" stations in GM end in 001 but if you're adapting this script for other CIF you may have to find another way of doing this)
                     if (preg_match("/001/", substr($line, 11, 3))) {
-                        // ... Check if it's the _station_ (which is in the timetable) and not a _stand_ (which is in the TT but not stopped at)
+                        // Put it on the array
                         $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
                     }
                 } else {
-                    // If it's not a station then we can add it to the array
+                    // It's just a normal stop and we put it on the array
                     $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
                 }
             }
         }
     }
 }
+// Combine duplicated stops
 $stopsArray = array_unique($stopsArray);
 
 ?>

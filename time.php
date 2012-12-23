@@ -1,20 +1,41 @@
 <?php
-$stop = htmlspecialchars($_REQUEST['stop']);
+// Get the day of the week we passed from search.php
 $day = htmlspecialchars($_REQUEST['day']);
+// Get the route the user searched for in search.php
 $route = htmlspecialchars($_REQUEST['route']);
-$stopName = htmlspecialchars($_REQUEST['stopName']);
-$filename = glob("cifdata/*_" . $route . "_.CIF");
-$file = $filename['0'];
+// Get the service the user picked in service.php
 $service = htmlspecialchars($_REQUEST['service']);
+// Get the stop ID we selected in stop.php
+$stop = htmlspecialchars($_REQUEST['stop']);
+// Get the stop name we selected in stop.php
+$stopName = htmlspecialchars($_REQUEST['stopName']);
+// Prepare "locking" variables
 $starttimeOpen = 0;
 $serviceOpen = 0;
-$lines = file($file);
+// Prepare times array
 $timesArray = [];
+
+/**
+  * This is where we do things a little bit differently, to make sure that things like Thursdays-only etc. are
+  * working, we look up the specific day that it runs on. We do this by looking at a 1/0 value on a "QS" line 
+  * (with 1 meaning service runs on this day and 0 it does not). Each day has a specific column to look in and
+  * that is what these numbers are. Other columns available are things like Bank Holidays and Schooldays Only 
+  * that I have not yet implemented. For further info look at the ATCO-CIF specification                      
+  *                                                                                                           
+  * http://www.travelinedata.org.uk/CIF/atco-cif-spec.pdf "ATCO File Format for Interchange of Timetable Data"
+  * Version 5.0                                                                                               
+  *                                                                                                           
+  * Note that TfGM use some nonstandard prefixes (starting "Z") which I use to make life a bit easier. If you 
+  * wish to adapt this script to work with other agencies' CIF data, you must bear this in mind and change it 
+  * accordingly.
+*/
+// Get a timestamp of the day we selected in search.php
 if ($day == strtolower(date('l'))) {
     $date = strtotime(date('Ymd'));
 } else {
     $date = strtotime("next " . $day);
 }
+// Get the column offset for the day selected
 if ($day == "monday") {
     $daysOffset = "29";
 } else if ($day == "tuesday") {
@@ -30,45 +51,64 @@ if ($day == "monday") {
 } else if ($day == "sunday") {
     $daysOffset = "35";
 }
+
+// For every CIF file that matches the route selected...
 foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
+    // ...Open it
     $lines = file($filename);
+    // For each line in it
     foreach($lines as $line_num => $line)
     {
+        // If it's a ZS line
         if (substr($line, 0, 2) == "ZS") {
+            // If it matches the service we selected in service.php
             if (trim(substr($line, 14, 50)) == $service) {
-                // Check that this service is the one we want
-                /*$service = trim(substr($line, 14, 50));*/
+                // We are allowed to process "QS" lines after this
                 $serviceOpen = 1;
+                // But we should not process anything else until we find one
                 $starttimeOpen = 0;
             } else {
+                // We're not allowed to process "QS" lines after this and we should not process anything until the next "ZS"
                 $serviceOpen = 0;
                 $starttimeOpen = 0;
-            }
-            $starttimeOpen = 0;
-            
+            }          
+        // If we're allowed to process "QS" lines and this is one  
         } else if ($serviceOpen == 1 && substr($line, 0, 2) == "QS") {
+            // If this service runs on the day we want (if there's a 1 in rthe column picked before)
             if (substr($line, $daysOffset, 1) == "1") {
+                // If is currently used (i.e. it has entered use but is not out of date)
                 if (strtotime(substr($line, 13, 8)) <= $date && strtotime(substr($line, 21, 8)) >= $date) {
+                    // We're allowed to process "QI", "QO" and "QT" lines
                     $starttimeOpen = 1;
                 } else {
+                    // We're not allowed to process anything until we find aother "ZS" or "QS" line.
                     $starttimeOpen = 0;
                 }
+            // If it does not run on the day we want it
             } else {
+                // We're not allowed to process anything until we find aother "ZS" or "QS" line. (I think this is safe to remove)
                 $starttimeOpen = 0;
             }
+        // If we're allowed to process "QI"/"QO" lines (origin/intermediate stops) and this is one
         } else if ($starttimeOpen == 1 && $serviceOpen == 1 && (substr($line, 0, 2) == "QI" || substr($line, 0, 2) == "QO")) {
+            // If the line is the stop we picked in stop.php
             if (trim(substr($line, 2, 11)) == $stop) {
-                // Check that this stop is the one we want to get times for
+                // Put the time on the array
                 array_push($timesArray, trim(substr($line, 14, 4)));
+                // and we're not allowed to process anything until the next "ZS" or "QS" (Once again, I don't think this in necessary)
                 $starttimeOpen = 0;
             }
+        // If we're allowed to process "QT" lines and this is one, but NOT if we're searching for a circular (origin is the same as termination) as this results in start and end times on the same page. See #3 for details.
         } else if ($starttimeOpen == 1 && $serviceOpen == 1 && substr($line, 0, 2) == "QT" && !preg_match('#(.*?)(circular|Circular|CIRCULAR)(.*?)#', $service)) {
+            // Put the time on the array
             array_push($timesArray, trim(substr($line, 14, 4)));
+            // and we're not allowed to process anything until the next "ZS" or "QS" (Believe it or not, probably not required).
             $starttimeOpen = 0;
         }
     }
 }
 
+//TODO: Order times chronologically, not as they are in the file. See if duplicate checking is required
 ?>
 
 

@@ -1,11 +1,15 @@
 <?php
+// Get the day of the week that was passed from search.php, hopefully in lowercase, htmlspecialchars stops any XSS business going on
 $day = htmlspecialchars($_REQUEST['day']);
-// day of the week in lowercase
+// Get the route the user searched for that was passed from search.php, should be in uppercase
 $route = htmlspecialchars($_REQUEST['route']);
-// route number in uppercase
-$servicesArray = [];
 
+// Prepare array that will contain services
+$servicesArray = [];
+// Prepare "locking" variable, this is set to 1 when we reach a "ZD" line that matches the day range set below, making sure that services that don't run on the day selected aren't displayed
 $dayOpen = 0;
+
+// "ZD" lines tell us what days the service runs on and have one of the following three values. Pick the correct one for the day selected.
 if ($day == "monday" || $day == "tuesday" || $day == "wednesday" || $day == "thursday" || $day == "friday") {
     $dayRange = "Mondays to Fridays";
 } else if ($day == "saturday") {
@@ -13,30 +17,34 @@ if ($day == "monday" || $day == "tuesday" || $day == "wednesday" || $day == "thu
 } else if ($day == "sunday") {
     $dayRange = "Sundays";
 }
+
+// For every CIF file that matches the route selected...
 foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
-    // for every cif file that matches the route number (done because some routes have 2 files, like the 192 having GM__192_.CIF *and* GMN_192_.CIF for its night service)
+    // ...Open it
     $lines = file($filename);
-    // open the file
+    // For each line in it...
     foreach($lines as $line_num => $line) // for every line in the file
     {
+        // If it is a "ZD" line (which tells us the day(s) it runs on)
         if (substr($line, 0, 2) == "ZD") {
-            // date declaration (my term)
+            // If it matches the day range ($dayRange) we picked before AND it is currently used (i.e. it has entered use but is not out of date)
             if (trim(substr($line, 18, 64)) == $dayRange && substr($line, 2, 8) < date('Ymd') && substr($line, 21, 8) > date('Ymd')) {
+                // We're allowed to process "ZS" lines after this
                 $dayOpen = 1;
-                // parse following lines
             } else {
+                // We're not allowed to process "ZS" lines after this
                 $dayOpen = 0;
             }
+        // If it's a "ZS" line (which contains the name of the service)
         } else if ($dayOpen == 1 && substr($line, 0, 2) == "ZS") {
-            // if the previous date declaration match and it's a service declaration
+            // Push it onto the array
             array_push($servicesArray, (trim(substr($line, 14, 50))));
-            // put the service name into $servicesArray
         }
         
     }
 }
+// Combine any duplicate services (which there are lots of in the CIF files for no apparent reason)
 $servicesArray = array_unique($servicesArray);
-// get rid of duplicates
 
 ?>
 
