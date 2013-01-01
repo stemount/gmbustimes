@@ -66,7 +66,7 @@ END;
       <hr>
 
       <footer>
-        <p>&copy; Kieran Mather 2012 - <a href="licence.php">Licence Information</a></p>
+        <p>&copy; Kieran Mather 2013 - <a href="licence.php">Licence Information</a></p>
       </footer>
     </div> <!-- /container -->
 
