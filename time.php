@@ -156,9 +156,6 @@ foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
                 <input type="text" class="span2" name="s">
                 <button type="submit" class="btn">Submit</button>
             </form>
-                <ul class="nav">
-    <li><a href="holiday.php">Christmas/Bank Holiday Info</a></li>
-    </ul>
           </div>
         </div>
       </div>
@@ -166,16 +163,14 @@ foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
 
     <div class="container">
 <?php
-// Holday services warning. You can remove this if you wish.
-$holidayStart = strtotime("2012-12-24"); // ISO date format FTW
-$holidayEnd = strtotime("2013-01-02");
+$holidayStart = strtotime("2013-03-27");
+$holidayEnd = strtotime("2013-04-02");
 $currentDate = time();
 if ($currentDate > $holidayStart && $currentDate < $holidayEnd){
 echo <<<END
-      <div class="alert alert-error alert-block">
-        <h2>WARNING!</h2>
-        <h3><strong>THE TIMES ON THIS PAGE ARE PROBABLY NOT THE ONES YOU WANT!</strong></h3>
-        <p>Times on this site are <strong>not</strong> valid during the adjusted Christmas timetables. Go <a href="http://www.tfgm.com/journey_planning/Pages/Christmas-services.aspx">here</a> for timetables. Do not use this site.<p>
+      <div class="alert alert-warning alert-block">
+        <h3>WARNING!</h3>
+        <p>Times on this site may <strong>not</strong> be valid on Good Friday (29th March) and Easter Sunday (1st April). Check with your operator for details.<p>
       </div>
 END;
 }
