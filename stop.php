@@ -65,7 +65,6 @@ foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
                     }
                 }
             } else {
-                echo substr($line, 3, 3);
                 // If it's not a TfGM stop then just put it on the array as we don't know how their stop numbering system works
                 $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
             }
