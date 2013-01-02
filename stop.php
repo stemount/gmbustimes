@@ -48,19 +48,26 @@ foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
             }
         // If we're allowed to process ZA lines and it is one
         } else if ($dayOpen == 1 && $serviceOpen == 1 && substr($line, 0, 2) == "ZA") {
-            // If the last 3 characters of a stop ID are digits (which prevents "phantom" stops that are listed but are stopped at by no journeys)
-            if (ctype_digit(substr($line, 11, 3))) {
-                // If it's a station (identified by 4 contiguous letters in the middle instead of two or three)...
-                if (preg_match("/\D\D\D\D/", substr($line, 3, 11))) {
-                    // ... If it's the correct station and not a phantom one (note that all "real" stations in GM end in 001 but if you're adapting this script for other CIF you may have to find another way of doing this)
-                    if (preg_match("/001/", substr($line, 11, 3))) {
-                        // Put it on the array
+            // If it's a TfGM stop (starting with 180) we perform extra logic to get correct stops and stations
+            if (substr($line, 3, 3) == "180"){
+                // If the last 3 characters of a stop ID are digits (which prevents "phantom" stops that are listed but are stopped at by no journeys)
+                if (ctype_digit(substr($line, 11, 3))) {
+                    // If it's a station (identified by 4 contiguous letters in the middle instead of two or three)...
+                    if (preg_match("/\D\D\D\D/", substr($line, 3, 11))) {
+                        // ... If it's the correct station and not a phantom one (note that all "real" stations in GM end in 001 but if you're adapting this script for other CIF you may have to find another way of doing this)
+                        if (preg_match("/001/", substr($line, 11, 3))) {
+                            // Put it on the array
+                            $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
+                        }
+                    } else {
+                        // It's just a normal stop and we put it on the array
                         $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
                     }
-                } else {
-                    // It's just a normal stop and we put it on the array
-                    $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
                 }
+            } else {
+                echo substr($line, 3, 3);
+                // If it's not a TfGM stop then just put it on the array as we don't know how their stop numbering system works
+                $stopsArray[substr($line, 3, 11)] = trim(substr($line, 15, 48));
             }
         }
     }
