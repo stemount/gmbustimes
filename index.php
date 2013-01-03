@@ -63,6 +63,9 @@ END;
 ?>
       <h1>Manchester Bus Times</h1>
       <p>Type your route number in the box in the navbar to find times</p>
+      <p>Timetable data last updated <?php
+echo date('d\/m\/y', filemtime(glob("cifdata/*.CIF")['1']));
+?></p>
       <hr>
 
       <footer>
