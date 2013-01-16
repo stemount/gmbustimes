@@ -104,8 +104,8 @@ END;
     <div class="row">
       <div class="span9">
         <h1>Data</h1>
-        <p>Uses data that is &copy; 2012 Transport for Greater Manchester</p>
-        <p>Contains Ordnance Survey data &copy; Crown copyright and database rights 2011</p>
+        <p>Uses data that is &copy; 2013 Transport for Greater Manchester</p>
+        <p>Contains Ordnance Survey data &copy; Crown copyright and database rights 2013</p>
         <p><a href="http://store.datagm.org.uk/sets/TfGM/FreeToUseData_SubLicence_v1.pdf">Full Licence</a></p>
         <p>You can get a copy of the data to be used with this programme at <a href="http://store.datagm.org.uk/sets/TfGM/GMPTE_CIF.zip">http://store.datagm.org.uk/sets/TfGM/GMPTE_CIF.zip</a>.
         <p><strong>tl;dr: do what you want, but give 'er Maj some credit</strong></p>

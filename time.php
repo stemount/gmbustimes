@@ -77,7 +77,7 @@ foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
             // If this service runs on the day we want (if there's a 1 in rthe column picked before)
             if (substr($line, $daysOffset, 1) == "1") {
                 // If is currently used (i.e. it has entered use but is not out of date)
-                if (strtotime(substr($line, 13, 8)) <= $date && strtotime(substr($line, 21, 8)) >= $date) {
+                    if (strtotime(substr($line, 13, 8)) <= $date && (strtotime(substr($line, 21, 8)) >= $date) || substr($line, 21, 8) >= 20990000) {
                     // We're allowed to process "QI", "QO" and "QT" lines
                     $starttimeOpen = 1;
                 } else {
