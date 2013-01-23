@@ -9,7 +9,7 @@ with
 $exampleArray = array();
 ```
 ## Info
-This script parses TfGM's ATCO-CIF data (placed in ./cifdata) to provide a nice-looking timetable service. Confirmed working with latest CIF dated 03/01/13
+This script parses TfGM's ATCO-CIF data (placed in ./cifdata) to provide a nice-looking timetable service. Confirmed working with latest CIF dated 23/01/13
 ## Usage
 Extract [TfGM's CIF data](http://store.datagm.org.uk/sets/TfGM/GMPTE_CIF.zip) into cifdata. The scripts should be working from this point and you can go from there.
 ## Licence
