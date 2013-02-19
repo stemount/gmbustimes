@@ -202,6 +202,8 @@ elseif ($day == strtolower(date('l', $dayAfter))){ // tomorrow+1 is selected
 </p>
       </div>
 </div>
+<div class="row">
+  <div class="span12">
     <table class="table">
         <thead>
             <tr>
@@ -223,25 +225,49 @@ else {
 </th>
             </tr>
         </thead>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span4">
+      <table class="table">
         <tbody>
 <?php
+$timesCount = count($timesArray);
+$timesPerRowFloat = ($timesCount / 3);
+$timesPerRow = round($timesPerRowFloat, 0, PHP_ROUND_HALF_UP);
+$i = 0;
 if (!empty($timesArray)){
 	foreach ($timesArray as $time){
-	    echo "<tr><td>" . $time . "</td></tr>";
+    if ($i == $timesPerRow){
+      echo "\n</tbody>\n</table>\n</div>\n<div class=\"span4\"><table class=\"table\"><tbody>";
+      echo "<tr><td>" . $time . "</td></tr>\n";
+      $i = 0;
+    }
+    else{
+      echo "<tr><td>" . $time . "</td></tr>\n";
+    }
+    $i++;
 	}
 }
 else {
 	echo "<tr><td><strong>The stop you selected is not stopped at by the service you selected on this day. Select another service, stop or route, or choose a different day.</strong></td></tr>";
 }
 ?>
-        </tbody>
-    </table>
-      <hr>
-
-      <footer>
-        <p>&copy; Kieran Mather 2013 - <a href="licence.php">Licence Information</a></p>
-      </footer>
-    </div> <!-- /container -->
+            </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <hr>
+  
+        <footer>
+          <p>&copy; Kieran Mather 2013 - <a href="licence.php">Licence Information</a></p>
+        </footer>
+    </div>
+  </div> <!-- /container -->
+</div>
 
     <!-- Le javascript
     ================================================== -->
