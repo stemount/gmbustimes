@@ -108,7 +108,10 @@ foreach(glob("cifdata/*_" . $route . "_.CIF") as $filename){
     }
 }
 
-//TODO: Order times chronologically, not as they are in the file. See if duplicate checking is required
+// Check for duplicate times
+$stopsArray = array_unique($stopsArray);
+// Put times in chronological order
+sort($timesArray);
 ?>
 
 
@@ -221,7 +224,7 @@ else {
             </tr>
         </thead>
         <tbody>
-<?
+<?php
 if (!empty($timesArray)){
 	foreach ($timesArray as $time){
 	    echo "<tr><td>" . $time . "</td></tr>";
