@@ -8,13 +8,13 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="vendor/css/cosmo.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootswatch/2.3.0/cosmo/bootstrap.min.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
-    <link href="vendor/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -129,8 +129,8 @@ END;
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
 
   </body>
 </html>
