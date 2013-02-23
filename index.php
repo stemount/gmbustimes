@@ -69,7 +69,7 @@ echo date('d\/m\/y', filemtime(glob("cifdata/*.CIF")['1']));
       <hr>
 
       <footer>
-        <p>&copy; Kieran Mather 2013 - <a href="licence.php">Licence Information</a> - Version 20130219-2</p>
+        <p>&copy; Kieran Mather 2013 - <a href="licence.php">Licence Information</a> - Version 20130223-DEV1</p>
       </footer>
     </div> <!-- /container -->
 
