@@ -263,7 +263,7 @@ else {
         <hr>
   
         <footer>
-          <p>&copy; Kieran Mather 2013 - <a href="licence.php">Licence Information</a></p>
+          <p>&copy; Kieran Mather 2013 - <a href="licence.php">Licence Information</a><!-- SPONSOR TAG --></p>
         </footer>
     </div>
   </div> <!-- /container -->

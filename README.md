@@ -22,5 +22,7 @@ Contains Cosmo from Bootswatch which is licenced under the Apache Licence.
 Contains Glyphicons which (in this case) are part of Bootstrap but deserve a separate mention.
 ### Data
 This repository contains no data for the scripts to work with, you must obtain this yourself (see Usage). Copyright notices related to TfGM's CIF data are included in licence.php but these obviously only apply if you use their data.
+## Sponsor Tags
+These are just for my use. Bytemark sponsor my server in return for me placing the badges on pages. When I pull commits to my web server, I use a script that replaces the html comments with the badge. Nothing will show on your site (except in HTML source) and you can safely delete them.
 ## Working Implementation
 [Here](http://www.codedump.eu/buses/)
